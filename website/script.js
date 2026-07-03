@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderProducts();
     renderServices();
     renderFAQ();
-    setupChatbot();
 });
 
 // Load all data from JSON files
@@ -123,53 +122,5 @@ function scrollTo(sectionId) {
     }
 }
 
-// Chatbot setup
-function setupChatbot() {
-    const toggleBtn = document.getElementById('chatbot-toggle');
-    const closeBtn = document.getElementById('chatbot-close');
-    const chatWindow = document.getElementById('chatbot-window');
-    const sendBtn = document.getElementById('chatbot-send');
-    const inputField = document.getElementById('chatbot-input');
-    
-    toggleBtn.addEventListener('click', () => {
-        chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
-    });
-    
-    closeBtn.addEventListener('click', () => {
-        chatWindow.style.display = 'none';
-    });
-    
-    sendBtn.addEventListener('click', sendChatMessage);
-    inputField.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendChatMessage();
-    });
-}
-
-// Send chat message (placeholder)
-function sendChatMessage() {
-    const inputField = document.getElementById('chatbot-input');
-    const messagesDiv = document.getElementById('chatbot-messages');
-    const message = inputField.value.trim();
-    
-    if (!message) return;
-    
-    // Add user message
-    const userMsg = document.createElement('div');
-    userMsg.style.cssText = 'margin-bottom: 0.8rem; text-align: right;';
-    userMsg.innerHTML = `<p style="background: #0099ff; color: white; padding: 0.7rem; border-radius: 8px; display: inline-block; max-width: 80%;">${message}</p>`;
-    messagesDiv.appendChild(userMsg);
-    
-    // Placeholder bot response
-    setTimeout(() => {
-        const botMsg = document.createElement('div');
-        botMsg.style.cssText = 'margin-bottom: 0.8rem;';
-        botMsg.innerHTML = `<p style="background: #f0f0f0; padding: 0.7rem; border-radius: 8px; display: inline-block; max-width: 80%;">Köszönöm a kérdést! Jelenleg a chatbot tanuló módban van. 🤖</p>`;
-        messagesDiv.appendChild(botMsg);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }, 500);
-    
-    inputField.value = '';
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
-
 console.log('🚀 KlímaProfi weboldal betöltve!');
+console.log('💬 A chatbot widget a chatbot_widget.js-ből töltődik be!');
