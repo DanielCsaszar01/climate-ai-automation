@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlímaProfi Kft. - Klímamegoldások</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>KlímaProfi</h1>
+                <p class="tagline">Profi klímamegoldások</p>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#termekek">Termékek</a></li>
+                <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+                <li><a href="#gyik">GYIK</a></li>
+                <li><a href="#kapcsolat">Kapcsolat</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Érezzél Jól Az Egész Évben</h2>
+            <p>Modern klímamegoldások, szakszerű telepítés, garantált karbantartás</p>
+            <button class="cta-btn" onclick="scrollTo('termekek')">Fedezz Fel Termékeket</button>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="termekek" class="section">
+        <div class="container">
+            <h2>Termékek</h2>
+            <p class="section-subtitle">Válassz a legjobb márkák közül</p>
+            <div id="products-grid" class="products-grid">
+                <!-- Termékek dinamikusan töltődnek be -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="szolgaltatasok" class="section section-alt">
+        <div class="container">
+            <h2>Szolgáltatások</h2>
+            <p class="section-subtitle">Teljes körű klímamegoldások</p>
+            <div id="services-grid" class="services-grid">
+                <!-- Szolgáltatások dinamikusan töltődnek be -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="gyik" class="section">
+        <div class="container">
+            <h2>Gyakran Ismételt Kérdések</h2>
+            <p class="section-subtitle">Válaszok a legfontosabb kérdésekre</p>
+            <div id="faq-container" class="faq-container">
+                <!-- GYIK-ek dinamikusan töltődnek be -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kapcsolat" class="section section-alt">
+        <div class="container">
+            <h2>Kapcsolatfelvétel</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>📞 Telefonszám</h3>
+                    <p><a href="tel:+36123456778">+36 1 234 5678</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>📧 Email</h3>
+                    <p><a href="mailto:info@klimaprofi.hu">info@klimaprofi.hu</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>📍 Cím</h3>
+                    <p>1123 Budapest, Klimaprofis utca 12.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 KlímaProfi Kft. Minden jog fenntartva.</p>
+    </footer>
+
+    <!-- Chatbot Widget (later) -->
+    <div id="chatbot-widget" class="chatbot-widget">
+        <button id="chatbot-toggle" class="chatbot-toggle">💬 Kérdés?</button>
+        <div id="chatbot-window" class="chatbot-window" style="display: none;">
+            <div class="chatbot-header">
+                <h4>KlímaProfi AI Asszisztens</h4>
+                <button id="chatbot-close" class="close-btn">✕</button>
+            </div>
+            <div id="chatbot-messages" class="chatbot-messages"></div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Írj egy kérdést...">
+                <button id="chatbot-send">Küldés</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
