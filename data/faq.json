@@ -1,0 +1,52 @@
+[
+  {
+    "id": "faq-001",
+    "question": "Melyik klímát ajánljátok egy 30 m²-es szobához?",
+    "answer": "Egy 30 m²-es szobához tipikusan 12000 BTU (3.5 kW) kapacitás szükséges. A KlímaProfi ajánlása: az LG Standard Plus (12000 BTU) vagy a Samsung Windfree (12000 BTU). Ha prémium minőséget szeretnél, a Daikin Perfera Plus (18000 BTU) is jó választás."
+  },
+  {
+    "id": "faq-002",
+    "question": "Mennyibe kerül egy klíma telepítés?",
+    "answer": "A telepítés alapára 35 000 Ft. Ez tartalmazza a kültéri/beltéri egység felszerelését, csővezetékeket és tesztelést. Az ár magában foglal egy klímát; több egység esetén egységenként 35 000 Ft-tal többet számítunk."
+  },
+  {
+    "id": "faq-003",
+    "question": "Garantált a termékek és a telepítés?",
+    "answer": "Igen. Minden klímára a gyártó 5-10 év garanciáját, míg a telepítésünkre 2 év garanciáját adjuk. Ha bármilyen hiba lép fel, ingyenes szervizelés."
+  },
+  {
+    "id": "faq-004",
+    "question": "Szükséges a rendszeres karbantartás?",
+    "answer": "Igen. A klímákat ajánlott 1-2 alkalmassza évente tisztítani és szűrőt cserélni, hogy optimális teljesítmény és élettartam biztosított legyen. A KlímaProfi Éves Karbantartási Csomag 25 000 Ft-ért 2x szakszervezet biztosít."
+  },
+  {
+    "id": "faq-005",
+    "question": "Van-e energiafogyasztási tanácsotok?",
+    "answer": "Igen! Inverter klímáink energiahatékonyak (A+ vagy jobb). Tippek: állítsd 24-26 °C-ra a hőmérsékletet, használd az Eco-módot, és nyáron zárj le ablakokat/függönyöket. Az inverter klímák 20-30%-kal kevesebb áramot használnak a régi típusokhoz képest."
+  },
+  {
+    "id": "faq-006",
+    "question": "Szállítotok-e a klímákat?",
+    "answer": "Igen, ingyenesen szállítjuk az egész Budapest és agglomeráció területén. A termék rendszer után 2-5 munkanap alatt leszállítunk."
+  },
+  {
+    "id": "faq-007",
+    "question": "Milyen márkákat kínáltok?",
+    "answer": "Jelenleg a következő márkákkal dolgozunk: LG, Daikin, Midea, Fujitsu és Samsung. Mindegyik kiváló minőséget és jó ár-érték arányt kínál."
+  },
+  {
+    "id": "faq-008",
+    "question": "Mit csináljatok, ha a klímám rosszul működik?",
+    "answer": "Azonnal hívj bennünket +36 1 234 5678-ra vagy emailezz: info@klimaprofi.hu. Ingyenes diagnosztikát végzünk, majd ha szükséges, javítást vagy alkatrészcserét végzünk. Az ár a probléma alapján változó."
+  },
+  {
+    "id": "faq-009",
+    "question": "Van-e WiFi vezérlés az összes klímán?",
+    "answer": "A modern modelleink (LG, Daikin, Fujitsu, Samsung) mindegyikén van WiFi vagy okos alkalmazásos vezérlés. Így távolról is szabályozható a hőmérséklet és energia."
+  },
+  {
+    "id": "faq-010",
+    "question": "Mennyi ideig tarthat egy klíma élettartama?",
+    "answer": "Megfelelő karbantartás mellett egy jó minőségű klíma 10-15 év alatt működhet. A KlímaProfi termékeire kínál olyan hosszú élettartamú modellek, mint a Daikin (ismert hosszú élettartamáról)."
+  }
+]
