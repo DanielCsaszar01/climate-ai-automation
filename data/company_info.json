@@ -1,0 +1,15 @@
+{
+  "company": {
+    "name": "KlímaProfi Kft.",
+    "tagline": "Profi klímamegoldások az egész évre",
+    "founded": 2015,
+    "location": "Budapest, Magyarország",
+    "contact": {
+      "phone": "+36 1 234 5678",
+      "email": "info@klimaprofi.hu",
+      "address": "1123 Budapest, Klimaprofis utca 12."
+    },
+    "services_area": "Budapest és agglomeráció",
+    "about": "A KlímaProfi Kft. egy megbízható klímamegoldási partner, amely 10 év tapasztalattal kínál magas minőségű légkondicionálókat, szakszerű telepítést és rendszeres karbantartást. Cégünk támogatja a modern, energiahatékony megoldásokat és a hosszú élettartamú terméket."
+  }
+}
