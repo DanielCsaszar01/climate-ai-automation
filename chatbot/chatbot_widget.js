@@ -2,7 +2,7 @@
 
 class KlimaprofiChatbot {
     constructor(apiUrl) {
-        this.apiUrl = apiUrl || 'http://localhost:5000'; // Railway URL-t behelyettesítsd
+        this.apiUrl = apiUrl || 'http://127.0.0.1:5000'; // Railway URL-t behelyettesítsd
         this.conversationHistory = [];
         this.init();
     }
@@ -143,9 +143,9 @@ class KlimaprofiChatbot {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     // Módosítsd az URL-t a Railway deploy után
-    const apiUrl = window.location.hostname === 'localhost' 
-        ? 'http://localhost:5000' 
-        : 'https://your-railway-app.up.railway.app'; // IDE kerül a Railway URL
-    
+    const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://127.0.0.1:5000'
+        : 'http://127.0.0.1:5000'; // később ide jöhet a valós Railway URL
+
     window.chatbot = new KlimaprofiChatbot(apiUrl);
 });
