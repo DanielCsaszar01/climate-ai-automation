@@ -42,9 +42,41 @@ def load_data():
 
 def create_system_prompt():
     """Létrehozza a system promptot az adatok alapján"""
-    products_text = "\n".join([f"- {p['name']} ({p['brand']}): {p['cooling_capacity_btu']}, {p['price']:,} Ft, Energia: {p['energy_class']}" for p in products_data])
-    services_text = "\n".join([f"- {s['name']}: {s['price'] if s['price'] > 0 else 'Ár a munka után'} ({s['duration_hours']})" for s in services_data])
-    faq_text = "\n".join([f"Q: {faq['question']}\nA: {faq['answer']}\n" for faq in faq_data])
+    def _as_int(value):
+        if isinstance(value, bool):
+            return None
+        if isinstance(value, (int, float)):
+            return int(value)
+        if isinstance(value, str):
+            cleaned = value.strip().replace(" ", "").replace(",", "")
+            if cleaned.isdigit():
+                return int(cleaned)
+        return None
+
+    def _format_price(value):
+        parsed = _as_int(value)
+        if parsed is not None:
+            return f"{parsed:,} Ft"
+        return str(value) if value not in (None, "") else "N/A"
+
+    products_text = "\n".join([
+        f"- {p.get('name', 'Ismeretlen termék')} ({p.get('brand', 'Ismeretlen márka')}): "
+        f"{p.get('cooling_capacity_btu', 'N/A')}, {_format_price(p.get('price', p.get('ar')))}, "
+        f"Energia: {p.get('energy_class', 'N/A')}"
+        for p in products_data
+    ])
+
+    services_text = "\n".join([
+        f"- {s.get('name', 'Ismeretlen szolgáltatás')}: "
+        f"{(_format_price(s.get('price', s.get('base_price', s.get('ar')))) if (_as_int(s.get('price', s.get('base_price', s.get('ar')))) or 0) > 0 else 'Ár a munka után')} "
+        f"({s.get('duration_hours', 'N/A')})"
+        for s in services_data
+    ])
+
+    faq_text = "\n".join([
+        f"Q: {faq.get('question', 'N/A')}\nA: {faq.get('answer', 'N/A')}\n"
+        for faq in faq_data
+    ])
     
     system_prompt = f"""Te egy segítőkész AI asszisztens vagy a KlímaProfi Kft. számára.
 
