@@ -108,6 +108,70 @@
     </div>
 
     <script src="script.js"></script>
-    <script src="/chatbot/chatbot_widget.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatbotClose = document.getElementById('chatbot-close');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            const chatbotInput = document.getElementById('chatbot-input');
+            const chatbotSend = document.getElementById('chatbot-send');
+
+            // --- Event Listeners ---
+            chatbotToggle.addEventListener('click', () => {
+                chatbotWindow.style.display = 'flex';
+                chatbotToggle.style.display = 'none';
+            });
+
+            chatbotClose.addEventListener('click', () => {
+                chatbotWindow.style.display = 'none';
+                chatbotToggle.style.display = 'block';
+            });
+
+            chatbotSend.addEventListener('click', sendMessage);
+            chatbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // --- Functions ---
+            function addMessage(message, sender) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', sender);
+                messageElement.textContent = message;
+                chatbotMessages.appendChild(messageElement);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+
+            async function sendMessage() {
+                const message = chatbotInput.value.trim();
+                if (message === '') return;
+
+                addMessage(message, 'user');
+                chatbotInput.value = '';
+
+                try {
+                    const response = await fetch('http://localhost:5000/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    addMessage(data.response, 'bot');
+                } catch (error) {
+                    console.error('Hiba a chatbot API hívásakor:', error);
+                    addMessage('Hiba történt a válasszal. Kérlek, próbáld újra később.', 'bot');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
