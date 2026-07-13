@@ -20,15 +20,87 @@
                 <li><a href="#gyik">GYIK</a></li>
                 <li><a href="#kapcsolat">Kapcsolat</a></li>
             </ul>
+            <a class="nav-cta" href="#kapcsolat">Ajánlatkérés</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h2>Érezzél Jól Az Egész Évben</h2>
-            <p>Modern klímamegoldások, szakszerű telepítés, garantált karbantartás</p>
-            <button class="cta-btn" onclick="scrollTo('termekek')">Fedezz Fel Termékeket</button>
+        <div class="container hero-layout">
+            <div class="hero-copy">
+                <p class="eyebrow">Budapest és agglomeráció • energiahatékony klímamegoldások</p>
+                <h2>Komfortos otthon egész évben.</h2>
+                <p class="hero-lead">
+                    Prémium klímák, letisztult kivitelezés és gyors szerviz. Segítünk kiválasztani a megfelelő
+                    teljesítményt, majd gondoskodunk a telepítésről is.
+                </p>
+                <div class="hero-actions">
+                    <a class="cta-btn" href="#termekek">Termékek megtekintése</a>
+                    <a class="secondary-btn" href="#kapcsolat">Személyes ajánlat</a>
+                </div>
+                <div class="hero-points">
+                    <span>✅ Helyszíni felmérés</span>
+                    <span>✅ 2 év telepítési garancia</span>
+                    <span>✅ Rugalmas időpontfoglalás</span>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-card"><strong id="stat-products">5</strong><span>modell</span></div>
+                    <div class="stat-card"><strong id="stat-services">5</strong><span>szolgáltatás</span></div>
+                    <div class="stat-card"><strong id="stat-years">10+</strong><span>év tapasztalat</span></div>
+                    <div class="stat-card"><strong id="stat-area">Budapest</strong><span>szolgáltatási terület</span></div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-image-card">
+                    <img src="assets/hero-split-ac.jpg" alt="Modern nappali klímaberendezéssel">
+                    <div class="floating-card">
+                        <span class="floating-label">Azonnali komfort</span>
+                        <strong>Precíz, csendes, energiatakarékos</strong>
+                    </div>
+                </div>
+                <div class="hero-mini-grid">
+                    <div class="mini-card">
+                        <span>🌬️</span>
+                        <p>Hűtés és fűtés egy rendszerben</p>
+                    </div>
+                    <div class="mini-card">
+                        <span>🛠️</span>
+                        <p>Szakszerű telepítés és rendszeres karbantartás</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section class="section intro-section">
+        <div class="container intro-grid">
+            <div class="intro-image-frame">
+                <img src="assets/intro-installation.jpg" alt="Klímaszerelő szakember munkában">
+            </div>
+            <div class="intro-copy">
+                <p class="eyebrow">Miért a KlímaProfi?</p>
+                <h2>Valós megoldások, valódi szakértelemmel</h2>
+                <p>
+                    Olyan klímamegoldásokat kínálunk, amelyek jól mutatnak az otthonban, csendesen működnek,
+                    és a mindennapi használatban is megbízhatóak. Nem csak terméket adunk, hanem teljes körű szolgáltatást.
+                </p>
+                <div class="intro-highlights">
+                    <article>
+                        <h3>Energiahatékony választás</h3>
+                        <p>Inverteres modellek A+ és A+++ energiaosztállyal, tudatos fogyasztásra hangolva.</p>
+                    </article>
+                    <article>
+                        <h3>Gyors és tiszta telepítés</h3>
+                        <p>Megtervezett kivitelezés, pontos időpontok, és kulturált munkavégzés a helyszínen.</p>
+                    </article>
+                    <article>
+                        <h3>Utógondozás és szerviz</h3>
+                        <p>Karban tartjuk a rendszert, hogy hosszú távon is hatékony és megbízható maradjon.</p>
+                    </article>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -101,7 +173,8 @@
             </div>
             <div id="chatbot-messages" class="chatbot-messages"></div>
             <div class="chatbot-input">
-                <input type="text" id="chatbot-input" placeholder="Írj egy kérdést...">
+                <label class="sr-only" for="chatbot-input">Chatbot kérdés</label>
+                <input type="text" id="chatbot-input" placeholder="Írj egy kérdést..." aria-label="Chatbot kérdés">
                 <button id="chatbot-send">Küldés</button>
             </div>
         </div>

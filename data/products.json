@@ -21,7 +21,7 @@
       "Antimikrobiális szűrő",
       "Sleep mód"
     ],
-    "image_url": "https://example.com/lg-standard-plus.jpg",
+    "image_url": "assets/hero-split-ac.jpg",
     "in_stock": true
   },
   {
@@ -46,7 +46,7 @@
       "Inverter+",
       "Fűtés -10°C-ig"
     ],
-    "image_url": "https://example.com/daikin-perfera.jpg",
+    "image_url": "assets/service-commercial-install.jpg",
     "in_stock": true
   },
   {
@@ -71,7 +71,7 @@
       "Süllyesztett beltéri egység",
       "Ezüst ion szűrő"
     ],
-    "image_url": "https://example.com/midea-inverter.jpg",
+    "image_url": "assets/intro-installation.jpg",
     "in_stock": true
   },
   {
@@ -96,7 +96,7 @@
       "Automatikus swingvédelem",
       "Eco-mód"
     ],
-    "image_url": "https://example.com/fujitsu-slim.jpg",
+    "image_url": "assets/service-repair.jpg",
     "in_stock": true
   },
   {
@@ -121,7 +121,7 @@
       "PM 1.0 szűrő",
       "Nyári/téli mód"
     ],
-    "image_url": "https://example.com/samsung-windfree.jpg",
+    "image_url": "assets/service-maintenance.jpg",
     "in_stock": false
   }
 ]

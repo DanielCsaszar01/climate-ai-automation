@@ -2,6 +2,8 @@ from dotenv import load_dotenv
 import os
 import json
 import httpx
+import re
+import unicodedata
 from groq import Groq
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -20,12 +22,16 @@ groq_api_key = os.getenv('GROQ_API_KEY', '')
 if not groq_api_key:
     print("⚠️  GROQ_API_KEY is not set!")
 
-# Create a custom httpx client that does NOT use environment proxies
-custom_httpx_client = httpx.Client(trust_env=False)
+client = None
+if groq_api_key:
+    # Create a custom httpx client that does NOT use environment proxies
+    custom_httpx_client = httpx.Client(trust_env=False)
 
-# Initialize the Groq client, passing in our custom, clean http_client
-client = Groq(api_key=groq_api_key, http_client=custom_httpx_client)
-print("✅ Groq client initialized successfully (with proxy bug workaround).")
+    # Initialize the Groq client, passing in our custom, clean http_client
+    client = Groq(api_key=groq_api_key, http_client=custom_httpx_client)
+    print("✅ Groq client initialized successfully (with proxy bug workaround).")
+else:
+    print("ℹ️  Groq API kulcs nélkül helyi tartalék válaszokat használunk.")
 
 
 # --- Data Loading ---
@@ -109,34 +115,167 @@ SZABÁLYOK:
   * 50-80 m²: ~24000 BTU
 """
 
+def _normalize_text(value):
+    if not value:
+        return ""
+    normalized = unicodedata.normalize("NFKD", str(value)).encode("ascii", "ignore").decode("ascii")
+    return normalized.lower()
+
+
+def _format_huf(value):
+    try:
+        return f"{int(float(value)):,} Ft"
+    except (TypeError, ValueError):
+        return "N/A"
+
+
+def _find_best_product_for_area(area_m2):
+    if area_m2 is None or not products_data:
+        return None
+
+    if area_m2 <= 20:
+        target_btu = 9000
+    elif area_m2 <= 35:
+        target_btu = 12000
+    elif area_m2 <= 55:
+        target_btu = 18000
+    else:
+        target_btu = 24000
+
+    return sorted(products_data, key=lambda p: abs((p.get('cooling_capacity') or 0) - target_btu))[0]
+
+
+def generate_local_response(user_message):
+    message = _normalize_text(user_message)
+
+    area_match = re.search(r'(\d+(?:[\.,]\d+)?)\s*(?:m2|m\u00b2|nm)', message)
+    btu_match = re.search(r'(\d{4,5})\s*btu', message)
+
+    if area_match:
+        area_m2 = float(area_match.group(1).replace(',', '.'))
+        product = _find_best_product_for_area(area_m2)
+        if product:
+            installation = next((s for s in services_data if s.get('type') == 'installation'), None)
+            return (
+                f"{area_m2:g} m²-hez a {product.get('name', 'ajánlott klíma')} jó választás. "
+                f"Kapacitás: {product.get('cooling_capacity_btu', 'N/A')}, ár: {_format_huf(product.get('price'))}. "
+                + (f"Telepítés: {_format_huf(installation.get('base_price'))}." if installation else "")
+            ).strip()
+
+    if btu_match:
+        target_btu = int(btu_match.group(1))
+        product = sorted(
+            products_data,
+            key=lambda p: abs((p.get('cooling_capacity') or 0) - target_btu)
+        )[0] if products_data else None
+        if product:
+            return (
+                f"A {target_btu} BTU-hoz a {product.get('name', 'ajánlott klíma')} áll a legközelebb. "
+                f"Ár: {_format_huf(product.get('price'))}, szobaméret-ajánlás: {product.get('room_size_min', 'N/A')}-{product.get('room_size_max', 'N/A')} m²."
+            )
+
+    if any(keyword in message for keyword in ['telepit', 'felszereles', 'install', 'beepites']):
+        installation = next((s for s in services_data if s.get('type') == 'installation'), None)
+        if installation:
+            return (
+                f"A klíma telepítés alapára {_format_huf(installation.get('base_price'))} egységenként. "
+                f"Ez tartalmazza a felszerelést, csövezést, elektromos bekötést és tesztelést."
+            )
+
+    if any(keyword in message for keyword in ['karbantart', 'tisztit', 'tisztítás', 'szuro', 'szűrő']):
+        maintenance = next((s for s in services_data if s.get('type') == 'maintenance'), None)
+        if maintenance:
+            return (
+                f"A klíma tisztítás és karbantartás díja {_format_huf(maintenance.get('base_price'))}. "
+                f"Ajánlott gyakoriság: {maintenance.get('frequency_recommended', 'évente 1-2 alkalommal')}."
+            )
+
+    if any(keyword in message for keyword in ['javit', 'szerviz', 'hiba', 'rosszul mukodik', 'rosszul működik', 'szivargas', 'szivárg']):
+        contact = company_info.get('company', {}).get('contact', {})
+        return (
+            "Javítás és szervizelés esetén az első diagnosztika díjmentes. "
+            f"Hívj minket a {contact.get('phone', 'N/A')} számon vagy írj a {contact.get('email', 'N/A')} címre."
+        )
+
+    if any(keyword in message for keyword in ['garancia', 'jotallas', 'jótáll', 'warranty']):
+        faq = next((item for item in faq_data if item.get('id') == 'faq-003'), None)
+        if faq:
+            return faq.get('answer', 'Garanciával kapcsolatban érdeklődj ügyfélszolgálatunknál.')
+
+    if any(keyword in message for keyword in ['szallit', 'szállit', 'szállít', 'delivery']):
+        faq = next((item for item in faq_data if item.get('id') == 'faq-006'), None)
+        if faq:
+            return faq.get('answer', 'Szállítással kapcsolatban érdeklődj ügyfélszolgálatunknál.')
+
+    if any(keyword in message for keyword in ['marca', 'márka', 'brand']):
+        faq = next((item for item in faq_data if item.get('id') == 'faq-007'), None)
+        if faq:
+            return faq.get('answer', 'Ezekkel a márkákkal dolgozunk.')
+
+    if any(keyword in message for keyword in ['wifi', 'okos', 'smart']):
+        faq = next((item for item in faq_data if item.get('id') == 'faq-009'), None)
+        if faq:
+            return faq.get('answer', 'A modern modellek WiFi vezérlést is tudnak.')
+
+    if any(keyword in message for keyword in ['ar', 'ár', 'koltseg', 'költség', 'mennyibe']):
+        product_lines = [f"- {p.get('name', 'N/A')}: {_format_huf(p.get('price'))}" for p in products_data]
+        service_lines = [f"- {s.get('name', 'N/A')}: {_format_huf(s.get('base_price'))}" for s in services_data if s.get('base_price') is not None]
+        return (
+            "Termékeink és szolgáltatásaink főbb árai:\n"
+            + "\n".join(product_lines)
+            + "\n\nSzolgáltatások:\n"
+            + "\n".join(service_lines)
+        )
+
+    if any(keyword in message for keyword in ['termek', 'termék', 'klima', 'klíma']):
+        product_lines = [f"- {p.get('name', 'N/A')} ({p.get('cooling_capacity_btu', 'N/A')}): {_format_huf(p.get('price'))}" for p in products_data]
+        return "Elérhető klímáink:\n" + "\n".join(product_lines)
+
+    contact = company_info.get('company', {}).get('contact', {})
+    return (
+        "Szívesen segítek klímaválasztásban, telepítésben vagy karbantartásban. "
+        f"Írhatsz konkrét szobaméretet is, vagy hívj minket: {contact.get('phone', 'N/A')}, e-mail: {contact.get('email', 'N/A')}."
+    )
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
     """Chatbot endpoint"""
     try:
-        data = request.json
+        data = request.get_json(silent=True) or {}
+        if not isinstance(data, dict):
+            data = {}
+
         user_message = data.get('message', '')
         
         if not user_message:
             return jsonify({"error": "Empty message"}), 400
         
         system_prompt = create_system_prompt()
-        
-        response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile", # Final attempt with a large, stable model
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_message}
-            ],
-            temperature=0.7,
-            max_tokens=500
-        )
-        
-        bot_response = response.choices[0].message.content
-        return jsonify({"success": True, "response": bot_response})
-    
+
+        if client is not None:
+            try:
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_message}
+                    ],
+                    temperature=0.7,
+                    max_tokens=500
+                )
+
+                bot_response = response.choices[0].message.content
+                return jsonify({"success": True, "response": bot_response, "source": "groq"})
+            except Exception as api_error:
+                print(f"⚠️  Groq hívás sikertelen, helyi válaszra váltunk: {api_error}")
+
+        bot_response = generate_local_response(user_message)
+        return jsonify({"success": True, "response": bot_response, "source": "local_fallback"})
+
     except Exception as e:
         print(f"❌ Error in chatbot endpoint: {e}")
-        return jsonify({"error": str(e)}), 500
+        fallback_message = locals().get('user_message', '')
+        return jsonify({"success": True, "response": generate_local_response(fallback_message), "source": "local_fallback", "warning": str(e)})
 
 @app.route('/api/health', methods=['GET'])
 def health():
