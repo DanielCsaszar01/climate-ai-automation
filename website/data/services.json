@@ -1,0 +1,87 @@
+[
+  {
+    "id": "svc-001",
+    "name": "Klíma Telepítés",
+    "type": "installation",
+    "description": "Professzionális klíma telepítés egy vagy több egységgel. Tartalmazza a külső/belső egység felszerelést, csővezetékeket, elektromos bekötést és tesztelést.",
+    "base_price": 35000,
+    "price_per_unit": 35000,
+    "currency": "HUF",
+    "duration_hours": "2-4",
+    "includes": [
+      "Helyszín felmérés",
+      "Kültéri és beltéri egység telepítése",
+      "Csővezetékek és elektromos bekötés",
+      "Rendszertöltés és tesztelés",
+      "Telepítési útmutató"
+    ],
+    "prerequisites": "Terméket kell már megvásárolni vagy ajánlatba foglaltak"
+  },
+  {
+    "id": "svc-002",
+    "name": "Klíma Tisztítás és Karbantartás",
+    "type": "maintenance",
+    "description": "Rendszeres klíma tisztítás és karbantartás. Szűrő cseréje, beltéri/kültéri egység tisztítása, szakszer tesztelés.",
+    "base_price": 15000,
+    "price_per_unit": null,
+    "currency": "HUF",
+    "duration_hours": "1-2",
+    "includes": [
+      "Beltéri egység szűrőjének cseréje",
+      "Kültéri egység tisztítása",
+      "Hűtőfolyadék szint ellenőrzése",
+      "Elektromos kapcsolatok vizsgálata",
+      "Teljesítményteszt"
+    ],
+    "frequency_recommended": "1-2 alkalommal évente"
+  },
+  {
+    "id": "svc-003",
+    "name": "Klíma Javítás és Szervizelés",
+    "type": "repair",
+    "description": "Klíma javítás és szervizelés meghibásodás, szivárgás vagy teljesítmény csökkenés esetén. Diagnosztika ingyenes.",
+    "base_price": 0,
+    "price_per_unit": 0,
+    "currency": "HUF",
+    "duration_hours": "1-3",
+    "note": "Ár a meghibásodás és szükséges alkatrészek alapján változó",
+    "includes": [
+      "Ingyenes diagnosztika",
+      "Javítás vagy alkatrész csere",
+      "Teljes tesztelés"
+    ]
+  },
+  {
+    "id": "svc-004",
+    "name": "Szellőzésrendszer Tervezés",
+    "type": "consultation",
+    "description": "Szakértelmes konzultáció: a megfelelő klímarendszer kiválasztása az ingatlan nagysága, szigetelése és igényei alapján.",
+    "base_price": 10000,
+    "price_per_unit": null,
+    "currency": "HUF",
+    "duration_hours": "1",
+    "includes": [
+      "Helyszín és igényfelmérés",
+      "Termékajaslatok",
+      "Költségbecslés",
+      "Telepítési terv"
+    ]
+  },
+  {
+    "id": "svc-005",
+    "name": "Éves Karbantartási Csomag",
+    "type": "package",
+    "description": "Éves karbantartási szerződés 2 alkalom klíma tisztítással, szűrőcserével és ellenőrzéssel. Kedvezményes ár.",
+    "base_price": 25000,
+    "price_per_unit": null,
+    "currency": "HUF",
+    "duration_hours": "2-4 (összesen az évben)",
+    "includes": [
+      "2x klíma tisztítás évente",
+      "2x szűrőcsere",
+      "Biztosított kiemelt ügyfélszolgálat",
+      "10% kedvezmény minden szervizelésre"
+    ],
+    "valid_for_months": 12
+  }
+]
