@@ -69,6 +69,8 @@ def load_data():
     except Exception as e:
         print(f"❌ An unexpected error occurred during data loading: {e}")
 
+load_data()
+
 def create_system_prompt():
     """Creates the system prompt based on the loaded data."""
     # This function remains the same, so it's shortened for brevity in this view
@@ -286,6 +288,5 @@ def home():
     return jsonify({"app": "KlímaProfi Chatbot API", "version": "1.0"})
 
 if __name__ == '__main__':
-    load_data()
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.getenv('PORT', 10000))
     app.run(debug=True, host='0.0.0.0', port=port)
