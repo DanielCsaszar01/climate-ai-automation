@@ -209,14 +209,31 @@
             });
 
             // --- Functions ---
+            function formatChatMessage(message) {
+                const escaped = String(message ?? '')
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+
+                return escaped
+                    .replace(/^\s*[-*]\s+/gm, '&bull; ')
+                    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            }
+
             function addMessage(message, sender) {
                 const messageElement = document.createElement('div');
                 messageElement.classList.add('message', sender);
-                messageElement.textContent = message;
+                messageElement.innerHTML = formatChatMessage(message);
                 chatbotMessages.appendChild(messageElement);
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-            }
 
+                if (sender === 'bot') {
+                    messageElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+                } else {
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                }
+            }
             async function sendMessage() {
                 const message = chatbotInput.value.trim();
                 if (message === '') return;
