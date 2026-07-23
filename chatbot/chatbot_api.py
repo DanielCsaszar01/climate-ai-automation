@@ -18,17 +18,17 @@ CORS(app)
 # The groq library has a bug where it incorrectly handles system proxy settings.
 # To bypass this, we explicitly create our own httpx client with proxy handling disabled
 # and pass it to the Groq client.
-groq_api_key = os.getenv('GROQ_API_KEY', '')
-if not groq_api_key:
-    print("⚠️  GROQ_API_KEY is not set!")
+cloud_api_key = os.getenv('CLOUD_API_KEY', '')
+if not cloud_api_key:
+    print("⚠️  CLOUD_API_KEY is not set!")
 
 client = None
-if groq_api_key:
+if cloud_api_key:
     # Create a custom httpx client that does NOT use environment proxies
     custom_httpx_client = httpx.Client(trust_env=False)
 
     # Initialize the Groq client, passing in our custom, clean http_client
-    client = Groq(api_key=groq_api_key, http_client=custom_httpx_client)
+    client = Groq(api_key=cloud_api_key, http_client=custom_httpx_client)
     print("✅ Groq client initialized successfully (with proxy bug workaround).")
 else:
     print("ℹ️  Groq API kulcs nélkül helyi tartalék válaszokat használunk.")
@@ -202,12 +202,12 @@ def generate_local_response(user_message):
     if any(keyword in message for keyword in ['garancia', 'jotallas', 'jótáll', 'warranty']):
         faq = next((item for item in faq_data if item.get('id') == 'faq-003'), None)
         if faq:
-            return faq.get('answer', 'Garanciával kapcsolatban érdeklődj ügyfélszolgálatunknál.')
+            return faq.get('answer', 'Garanciával kapcsolatban érdeklődj ügyfélszolgálatunál.')
 
     if any(keyword in message for keyword in ['szallit', 'szállit', 'szállít', 'delivery']):
         faq = next((item for item in faq_data if item.get('id') == 'faq-006'), None)
         if faq:
-            return faq.get('answer', 'Szállítással kapcsolatban érdeklődj ügyfélszolgálatunknál.')
+            return faq.get('answer', 'Szállítással kapcsolatban érdeklődj ügyfélszolgálatunál.')
 
     if any(keyword in message for keyword in ['marca', 'márka', 'brand']):
         faq = next((item for item in faq_data if item.get('id') == 'faq-007'), None)
