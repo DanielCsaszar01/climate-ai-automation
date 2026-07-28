@@ -193,14 +193,12 @@
             // --- Event Listeners ---
             chatbotToggle.addEventListener('click', () => {
                 chatbotWindow.style.display = 'flex';
-                chatbotToggle.style.visibility = 'hidden'; // Elrejtjük, de a helyét megtartja
-                chatbotToggle.style.opacity = '0'; // Áttetszővé tesszük
+                chatbotToggle.style.display = 'none';
             });
 
             chatbotClose.addEventListener('click', () => {
                 chatbotWindow.style.display = 'none';
-                chatbotToggle.style.visibility = 'visible'; // Láthatóvá tesszük
-                chatbotToggle.style.opacity = '1'; // Teljesen láthatóvá tesszük
+                chatbotToggle.style.display = 'block';
             });
 
             chatbotSend.addEventListener('click', sendMessage);
