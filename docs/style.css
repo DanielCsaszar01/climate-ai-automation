@@ -675,6 +675,7 @@ section[id] {
     max-width: 1000px;
     margin: 0 auto;
 }
+
 .contact-item {
     padding: 1.4rem;
     text-align: center;
@@ -728,7 +729,7 @@ section[id] {
 
 .chatbot-window {
     position: absolute;
-    bottom: 0;
+    bottom: 80px;
     right: 0;
     width: 360px;
     height: 460px;
