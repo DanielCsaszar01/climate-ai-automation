@@ -675,7 +675,6 @@ section[id] {
     max-width: 1000px;
     margin: 0 auto;
 }
-
 .contact-item {
     padding: 1.4rem;
     text-align: center;
@@ -729,7 +728,7 @@ section[id] {
 
 .chatbot-window {
     position: absolute;
-    bottom: 80px;
+    bottom: 0;
     right: 0;
     width: 360px;
     height: 460px;
@@ -898,3 +897,81 @@ section[id] {
         height: 420px;
     }
 }
+
+/* ============================================================
+   KLÍMAPROFI – ARCULATI FRISSÍTÉS (egységes az űrlappal/e-mailekkel)
+   ============================================================ */
+:root {
+  --bg: #edf3f7;
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --text: #0b2a3a;
+  --muted: #5a7180;
+  --primary: #0e86c7;
+  --primary-dark: #0a6aa0;
+  --accent: #35b0d8;
+  --line: rgba(11, 42, 58, 0.10);
+  --shadow: 0 22px 60px -28px rgba(11, 42, 58, 0.35);
+  --shadow-soft: 0 12px 34px -20px rgba(11, 42, 58, 0.26);
+}
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  color: var(--text);
+  background:
+    radial-gradient(900px 440px at 88% -8%, rgba(53,176,216,0.16), transparent 60%),
+    radial-gradient(700px 380px at 0% 0%, rgba(14,134,199,0.10), transparent 55%),
+    var(--bg);
+}
+h1, h2, h3, .logo h1, .hero-copy h2, .stat-card strong, .section h2 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+  letter-spacing: -0.02em;
+}
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 0.16em;
+  font-size: 0.74rem; font-weight: 600; color: var(--primary-dark);
+}
+.navbar {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+}
+.nav-cta {
+  background: var(--primary); color: #fff !important;
+  padding: 0.6rem 1.1rem; border-radius: 10px; font-weight: 600;
+  transition: background .15s, transform .05s;
+}
+.nav-cta:hover { background: var(--primary-dark); }
+.nav-cta:active { transform: translateY(1px); }
+.cta-btn {
+  background: var(--primary); color: #fff !important;
+  padding: 0.85rem 1.5rem; border-radius: 11px; font-weight: 600;
+  box-shadow: var(--shadow-soft); transition: background .15s, transform .05s;
+}
+.cta-btn:hover { background: var(--primary-dark); }
+.cta-btn:active { transform: translateY(1px); }
+.secondary-btn {
+  padding: 0.85rem 1.5rem; border-radius: 11px; font-weight: 600;
+  border: 1.5px solid var(--primary); color: var(--primary-dark) !important;
+  background: transparent; transition: background .15s;
+}
+.secondary-btn:hover { background: rgba(14,134,199,0.08); }
+.stat-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 14px; box-shadow: var(--shadow-soft);
+}
+.stat-card strong { color: var(--primary-dark); }
+.product-card, .service-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 16px; box-shadow: var(--shadow-soft); overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.product-card:hover, .service-card:hover {
+  transform: translateY(-4px); box-shadow: var(--shadow);
+}
+.section-subtitle { color: var(--muted); }
+.footer { background: #0b2a3a; color: #cfe0ea; }
+.chatbot-toggle {
+  background: var(--primary) !important; color: #fff !important;
+  border-radius: 999px; font-weight: 600; box-shadow: var(--shadow-soft);
+}
+.chatbot-header { background: var(--primary) !important; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
