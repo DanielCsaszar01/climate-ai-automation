@@ -975,3 +975,10 @@ h1, h2, h3, .logo h1, .hero-copy h2, .stat-card strong, .section h2 {
 }
 .chatbot-header { background: var(--primary) !important; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+
+/* NAV SZÖVEGSZÍN JAVÍTÁS – a világos sávon sötét, olvasható szöveg */
+.logo h1 { color: var(--text) !important; }
+.logo .tagline, .navbar .tagline { color: var(--muted) !important; }
+.nav-links a { color: var(--text) !important; }
+.nav-links a:hover { color: var(--primary-dark) !important; }
+.nav-cta { color: #fff !important; }
