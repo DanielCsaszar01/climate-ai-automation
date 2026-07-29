@@ -155,6 +155,16 @@
           </select>
         </div>
         <div class="field">
+          <label for="termek">Melyik klíma érdekli?</label>
+          <select id="termek" name="termek">
+            <option value="Még nem tudom / egyeztetés alatt">Még nem tudom / egyeztetés alatt</option>
+            <option value="Midea Inverter Easy">Midea Inverter Easy (9000 BTU)</option>
+            <option value="LG Standard Plus">LG Standard Plus (12000 BTU)</option>
+            <option value="Daikin Perfera Plus">Daikin Perfera Plus (18000 BTU)</option>
+            <option value="Fujitsu Slim Design">Fujitsu Slim Design (24000 BTU)</option>
+          </select>
+        </div>
+        <div class="field">
           <label for="idopont">Mikor keressük?</label>
           <select id="idopont" name="idopont">
             <option value="Hétköznap délelőtt">Hétköznap délelőtt</option>
@@ -186,6 +196,20 @@
   // ⬇️ IDE ÍRD BE az n8n űrlap-webhook Production URL-jét:
   const WEBHOOK_URL = 'https://csuszi.app.n8n.cloud/webhook/klimaprofi-lead-form';
 
+  // Chatbot által átadott termék előtöltése a linkből (?termek=...)
+  (function(){
+    try{
+      var params = new URLSearchParams(window.location.search);
+      var t = params.get('termek');
+      if(t){
+        var sel = document.getElementById('termek');
+        for(var i=0;i<sel.options.length;i++){
+          if(sel.options[i].value.toLowerCase() === t.toLowerCase()){ sel.selectedIndex = i; break; }
+        }
+      }
+    }catch(e){}
+  })();
+
   const form = document.getElementById('leadForm');
   const statusEl = document.getElementById('status');
   const submitBtn = document.getElementById('submitBtn');
@@ -215,6 +239,7 @@
       email: form.email.value.trim(),
       lakcim: form.lakcim.value.trim(),
       szolgaltatas: form.szolgaltatas.value,
+      termek: form.termek.value,
       idopont: form.idopont.value,
       uzenet: form.uzenet.value.trim()
     };
