@@ -226,7 +226,8 @@
 
             return escaped
                 .replace(/^\s*[-*]\s+/gm, '&bull; ')
-                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/(https?:\/\/[^\s<]+)/g, function(url){ var trailing=''; var m=url.match(/[.,;:!?)]+$/); if(m){ trailing=m[0]; url=url.slice(0,-trailing.length); } return '<a href="'+url+'" target="_blank" rel="noopener" style="color:#0099ff;text-decoration:underline;word-break:break-all;">'+url+'</a>'+trailing; });
         }
 
         function addMessage(message, sender) {
